@@ -28,8 +28,5 @@ Mat copyFace(Mat img,int leftWidth,int bottomHeight,int rightWidth,int topHeight
 		}
 		//x++;
 	}
-	//equalizeHist(image, image);
-	//namedWindow("copy", WINDOW_AUTOSIZE);
-	//imshow("copy", image);
 	return copy;
 }

@@ -4,7 +4,7 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/objdetect.hpp"
-#include "LBPRecognition.h"
+#include "fisherfaceRecognition.h"
 
 #include <iostream>
 #include <fstream>
@@ -25,14 +25,14 @@ using namespace std;
 	           it returns 1.
 */
 
-int LBP(Mat img, CascadeClassifier face_cascade, Ptr<FaceRecognizer> model)
+int fisher(Mat img, CascadeClassifier face_cascade, Ptr<BasicFaceRecognizer> model)
 {
 	int test = 0;
 	int predicted_label = -1;
 	double predicted_confidence = 0.0;
 	model->predict(img, predicted_label, predicted_confidence);
 	string result_message;
-	if (predicted_label == 0 && predicted_confidence > 5) {
+	if (predicted_label == 0 && predicted_confidence > 16000) {
 		return 0;
 	}
 	else {
@@ -40,9 +40,10 @@ int LBP(Mat img, CascadeClassifier face_cascade, Ptr<FaceRecognizer> model)
 	}
 }
 
-Ptr<FaceRecognizer> trainLBP(vector<Mat>& images, vector<int>& labels)
+
+Ptr<BasicFaceRecognizer> trainF(vector<Mat>& images, vector<int>& labels)
 {
-	Ptr<FaceRecognizer> model = createLBPHFaceRecognizer(2,16);
+	Ptr<BasicFaceRecognizer> model = createEigenFaceRecognizer(0);
 	model->train(images, labels);
 	return model;
 }
